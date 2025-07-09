@@ -13,6 +13,7 @@ const SignupSchema=zod.object({
     lastname:zod.string()
 })
 userRouter.post("/signup",async (req,res)=>{ 
+   try{
     const body=req.body; 
     const {success}=SignupSchema.safeParse(body); /// safeParse returns an object with a success property
     if(!success){ 
@@ -48,7 +49,11 @@ userRouter.post("/signup",async (req,res)=>{
      res.json({ 
     message:"User created successfully", 
         token:token
-    })
+    })}catch(err){ 
+        res.status(402).json({ 
+           msg:"Error in creating user",
+        })
+    }
 
 }) 
 
@@ -68,7 +73,7 @@ userRouter.post("/signin", async (req,res)=>{
         password:req.body.password
     }) 
     if(!user){ 
-        res.json({ 
+        return res.json({ 
             message:"User not found"
         })
     } 
