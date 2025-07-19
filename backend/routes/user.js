@@ -18,7 +18,7 @@ userRouter.post("/signup",async (req,res)=>{
     const {success}=SignupSchema.safeParse(body); /// safeParse returns an object with a success property
     if(!success){ 
         res.json({ 
-             messgae:"Incorrect inputs"
+             message:"Incorrect inputs"
         })
     }
     const existinguser=await UserModel.findOne({ 

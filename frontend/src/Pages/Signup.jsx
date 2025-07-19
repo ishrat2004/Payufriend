@@ -11,6 +11,7 @@ export function Signup(){
     const [lastname,setLastname] = useState("");
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");  
+    const [validity,setvalidity]=useState("valid"); 
     const navigate=useNavigate(); 
     async function sendrequest(){ 
          const response=await axios.post("http://localhost:3000/api/v1/user/signup",{
@@ -19,6 +20,20 @@ export function Signup(){
           firstname,
           lastname
          }) 
+         console.log(response.data);
+         const temp=response.data.message;
+         console.log(temp); 
+         if(response.data.message==="Incorrect inputs"){
+          setvalidity("PasswordTooShort");
+           return;
+         }
+         else if(response.data.message==="Password too short"){
+           return;
+         }
+         else if(response.data.message==="User already exists"){
+          setvalidity("UserAlreadyExists");
+           return;
+         }
          console.log(response.data.token); 
          localStorage.setItem("token",response.data.token);
          navigate("/signin"); 
@@ -34,6 +49,9 @@ export function Signup(){
               <Inputbox onChange={e=>{setUsername(e.target.value);  }} label="Username" placeholder="johndoe" />
               <Inputbox onChange={e=>{setPassword(e.target.value);  }} label="Password" placeholder="********"/>
               <div className="mt-4"> 
+                {validity==="UserAlreadyExists"?<div className="text-red-500">User Already Exists</div>:null}
+                {validity==="PasswordTooShort"?<div className="text-red-500">Password Too Short</div>:null}
+                
                 <Button onClick={sendrequest} label="Sign Up" />
               </div>
               <BottomWarningComponent label="Already Have an Account?" buttonText={"Sign In"} to={"/signin"} />

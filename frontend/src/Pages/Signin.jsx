@@ -16,6 +16,14 @@ export function Signin(){
             username,
             password
         }); 
+        if(response.data.message==="Incorrect inputs"){
+            alert("Invalid Credentials");
+            return;
+        }
+        else if(response.data.message==="User not found"){
+            alert("User not found");
+            return;
+        }
         localStorage.setItem("token",response.data.token); 
         alert("Successfully Logged In");
         navigate("/dashboard");
