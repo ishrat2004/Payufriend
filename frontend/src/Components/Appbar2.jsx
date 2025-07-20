@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 export function Appbar2(){ 
     const [showDropDown,setdropdown]=useState(false); 
     const navigate=useNavigate(); 
+    function signOut(){ 
+      localStorage.removeItem("token"); 
+      localStorage.removeItem("username"); 
+      navigate("/");
+    }
     return <div className="bg-white shadow-sm border-b border-gray-200"> 
           <div>  
             <div className="flex justify-between items-center h-16"> 
@@ -38,9 +43,11 @@ export function Appbar2(){
                  </button>
                  {/* Dropdown */}
                  {showDropDown && ( <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50"> 
-                       <div className="flex items-center px-4 py-2 text-xl md:text-2xl text-red-600 hover:bg-gray-100" onClick={()=>{ 
-                             navigate("/home")
-                       } }>  
+                       <div 
+                       onClick={()=>{
+                            signOut(); 
+                        }}
+                       className="cursor-pointer flex items-center px-4 py-2 text-xl md:text-2xl text-red-600 hover:bg-gray-100" >  
                          <LogOut className="h-4 w-4 mr-3 "/> 
                          Signout
                         </div>

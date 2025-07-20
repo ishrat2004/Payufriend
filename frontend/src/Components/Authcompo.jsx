@@ -41,14 +41,17 @@ export function Authcompo({authmode,setauthmode}){
             password
         }); 
         if(response.data.message==="Incorrect inputs"){
-            alert("Invalid Credentials");
+            //alert("Invalid Credentials");
+            setvalidity("Invalid Credentials");
             return;
         }
         else if(response.data.message==="User not found"){
-            alert("User not found");
+            // alert("User not found");
+            setvalidity("User not found");
             return;
         }
         localStorage.setItem("token",response.data.token); 
+        localStorage.setItem("username",response.data.username); 
         alert("Successfully Logged In");
         navigate("/dashboard");
     }
@@ -176,6 +179,8 @@ export function Authcompo({authmode,setauthmode}){
                          className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mb-4 text-lg md:text-xl"> 
                              Sign In
                             </button>  
+                            {validity==="Invalid Credentials"?<div className="text-red-500">Invalid Credentials</div>:null}
+                            {validity==="User not found"?<div className="text-red-500">User not found</div>:null}
                             <div className="flex justify-center "> 
                             <h3> 
                                 Don't have an account?<span className="cursor-pointer" onClick={()=>{ 

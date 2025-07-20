@@ -4,6 +4,7 @@ import { Appbar2 } from "../Components/Appbar2";
 import { Balance } from "../Components/Balance";
 import { Actions } from "../Components/Actions";
 import { Users } from "../Components/Users";
+import { Users2 } from "../Components/Users2";
 
 export function Dashboard2(){ 
     return <div className="min-h-screen bg-gray-50 ">  
@@ -19,7 +20,7 @@ export function Dashboard2(){
               </div>
           </div> 
           <div> 
-            <Users/>
+            <Users2/>
           </div>
     </div>
 }

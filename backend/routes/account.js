@@ -22,19 +22,31 @@ AccountRouter.get("/balance",authMiddleware,async (req,res)=>{
      })
 }) 
 
-// AccountRouter.post("/add_money",authMiddleware,(req,res)=>{ 
+AccountRouter.post("/add_money",authMiddleware,async (req,res)=>{ 
        
-//     const session=mongoose.startSession(); 
-//     const userId=req.userId; 
-//        const account_details=Account.findOne({ 
-//         userId:userId
-//        })
-//        const money=req.body.money;  
-//        res.json({ 
-//         msg:"we will add money to the account",
-//        })
+    const session=await mongoose.startSession(); 
+    session.startTransaction(); 
+    const userId=req.userId; 
+       const account_details=await Account.findOne({ 
+        userId:userId
+       }).session(session); 
+       if(!account_details){ 
+           await session.abortTransaction(); 
+           res.status(400).json({ 
+            msg:"Account not found"
+           })
+       }
+       const money=req.body.money;  
+       await Account.updateOne(
+        {userId:userId},
+        {$inc:{balance: money} }
+       ).session(session); 
+       await session.commitTransaction(); 
+       res.json({ 
+        msg:"Money added successfully",
+       })
 
-// })
+})
 AccountRouter.post("/transfer",authMiddleware,async (req,res)=>{ 
     /// initially start a session 
     const session= await mongoose.startSession(); 
