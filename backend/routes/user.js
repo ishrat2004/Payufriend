@@ -5,13 +5,13 @@ const jwt=require("jsonwebtoken");
 const {UserModel, Account}=require("../db");
 const { JWT_SECRET } = require("../config");
 const { authMiddleware } = require("../middleware");
-const { use } = require("react");
 const SignupSchema=zod.object({ 
     username:zod.string(), 
     password:zod.string(), 
     firstname:zod.string(),
     lastname:zod.string()
 })
+
 userRouter.post("/signup",async (req,res)=>{ 
    try{
     const body=req.body; 
