@@ -9,7 +9,7 @@ export function Users2(){
     const [users,setusers]=useState([]); 
     useEffect(()=>{ 
         ///setLoading(true); 
-         axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter,{ 
+         axios.get("https://payufriend.onrender.com/api/v1/user/bulk?filter="+filter,{ 
             headers:{
                 "Authorization":`Bearer ${localStorage.getItem("token")}`
             }

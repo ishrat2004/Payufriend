@@ -10,7 +10,7 @@ export function Authcompo({authmode,setauthmode}){
     const [validity,setvalidity]=useState("valid"); 
     const navigate=useNavigate(); 
     async function sendrequest(){ 
-         const response=await axios.post("http://localhost:3000/api/v1/user/signup",{
+         const response=await axios.post("https://payufriend.onrender.com/api/v1/user/signup",{
           username,
           password,
           firstname,
@@ -36,7 +36,7 @@ export function Authcompo({authmode,setauthmode}){
 
     }
    async function signin_request(){ 
-        const response=await axios.post("http://localhost:3000/api/v1/user/signin",{
+        const response=await axios.post("https://payufriend.onrender.com/api/v1/user/signin",{
             username,
             password
         }); 

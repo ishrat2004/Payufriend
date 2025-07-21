@@ -11,7 +11,7 @@ export function SendMoney(){
     console.log("type is " + type);
     const [amount,setamount]=useState(); 
     async function transfer(){ 
-        await axios.post("http://localhost:3000/api/v1/account/transfer",{
+        await axios.post("https://payufriend.onrender.com/api/v1/account/transfer",{
             amount:amount,
             to:id
         },{ 
@@ -21,7 +21,7 @@ export function SendMoney(){
         })
     }
     async function self_transfer(){ 
-        const response=await axios.post("http://localhost:3000/api/v1/account/add_money",{
+        const response=await axios.post("https://payufriend.onrender.com/api/v1/account/add_money",{
             money:amount
         },{ 
             headers:{ 
